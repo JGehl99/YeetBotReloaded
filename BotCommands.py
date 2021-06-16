@@ -33,38 +33,20 @@ class BotCommands(commands.Cog):
 
     @commands.command(pass_context=True)
     async def minesweeper(self, ctx, *, arg=None):
-        ms = Minesweeper(int(8), int(8))
-        ms.fillBoard()
-        ms.printBoard()
-        msg = ""
-        for j in range(ms.y):
-            for i in range(ms.x):
-                print(i, j)
-                if ms.board[i][j] == -1:
-                    msg += "||:boom:||"
-                if ms.board[i][j] == 0:
-                    msg += "||:zero:||"
-                if ms.board[i][j] == 1:
-                    msg += "||:one:||"
-                if ms.board[i][j] == 2:
-                    msg += "||:two:||"
-                if ms.board[i][j] == 3:
-                    msg += "||:three:||"
-                if ms.board[i][j] == 4:
-                    msg += "||:four:||"
-                if ms.board[i][j] == 5:
-                    msg += "||:five:||"
-                if ms.board[i][j] == 6:
-                    msg += "||:six:||"
-                if ms.board[i][j] == 7:
-                    msg += "||:seven:||"
-                if ms.board[i][j] == 8:
-                    msg += "||:eight:||"
-            msg += "\n"
+        x = 0
+        y = 0
+        mines = 0
+        try:
+            args = str(arg).split()
+            print(args)
+            x = int(args[0])
+            y = int(args[1])
+            mines = int(args[2])
+        except TypeError:
+            await ctx.send("Usage: `!Minesweeper <width> <height> <# of mines>`")
 
-        await ctx.send(msg)
-
-
+        ms = Minesweeper(x, y, mines)
+        await ctx.send(ms.msg)
 
     @commands.command(pass_context=True)
     @commands.has_role('Admins')
