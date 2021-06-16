@@ -3,6 +3,7 @@ from discord.ext import commands
 from discord.utils import get
 from bs4 import BeautifulSoup as bs
 import requests
+from Minesweeper import Minesweeper
 
 
 class BotCommands(commands.Cog):
@@ -29,6 +30,41 @@ class BotCommands(commands.Cog):
             await ctx.send(arg)
         else:
             print("Test with no args")
+
+    @commands.command(pass_context=True)
+    async def minesweeper(self, ctx, *, arg=None):
+        ms = Minesweeper(int(8), int(8))
+        ms.fillBoard()
+        ms.printBoard()
+        msg = ""
+        for j in range(ms.y):
+            for i in range(ms.x):
+                print(i, j)
+                if ms.board[i][j] == -1:
+                    msg += "||:boom:||"
+                if ms.board[i][j] == 0:
+                    msg += "||:zero:||"
+                if ms.board[i][j] == 1:
+                    msg += "||:one:||"
+                if ms.board[i][j] == 2:
+                    msg += "||:two:||"
+                if ms.board[i][j] == 3:
+                    msg += "||:three:||"
+                if ms.board[i][j] == 4:
+                    msg += "||:four:||"
+                if ms.board[i][j] == 5:
+                    msg += "||:five:||"
+                if ms.board[i][j] == 6:
+                    msg += "||:six:||"
+                if ms.board[i][j] == 7:
+                    msg += "||:seven:||"
+                if ms.board[i][j] == 8:
+                    msg += "||:eight:||"
+            msg += "\n"
+
+        await ctx.send(msg)
+
+
 
     @commands.command(pass_context=True)
     @commands.has_role('Admins')
