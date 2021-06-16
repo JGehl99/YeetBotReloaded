@@ -36,6 +36,7 @@ class BotCommands(commands.Cog):
         x = 0
         y = 0
         mines = 0
+
         try:
             args = str(arg).split()
             print(args)
